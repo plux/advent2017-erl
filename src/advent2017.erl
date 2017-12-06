@@ -13,4 +13,4 @@ main([Arg, File]) ->
 
 solve(Mod, File) ->
     {ok, Input} = file:read_file(File),
-    Mod:solve(string:trim(Input)).
+    Mod:solve(string:trim(binary_to_list(Input))).

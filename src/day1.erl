@@ -2,7 +2,7 @@
 -compile([export_all]).
 
 solve(Input) ->
-    Nums = [C - $0 || C <- binary_to_list(Input)],
+    Nums = [C - $0 || C <- Input],
     {part1(Nums), part2(Nums)}.
 
 part1(L) ->

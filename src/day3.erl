@@ -7,7 +7,7 @@
 -define(right, {1, 0}).
 
 solve(Input) ->
-    N = list_to_integer(binary_to_list(Input)),
+    N = list_to_integer(Input),
     {part1(N), part2(N)}.
 
 part1(N) ->

@@ -7,7 +7,7 @@ solve(Input) ->
 
 parse(Input) ->
     [ [ list_to_integer(N) || N <- string:tokens(Row, "\t")]
-      || Row <- string:tokens(binary_to_list(Input), "\n")].
+      || Row <- string:tokens(Input, "\n")].
 
 part1(Rows) ->
     lists:sum([lists:max(Row) - lists:min(Row) || Row <- Rows]).
