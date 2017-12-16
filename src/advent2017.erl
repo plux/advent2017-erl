@@ -4,12 +4,22 @@
 -export([solve/2]).
 
 %% escript Entry point
+main([]) ->
+    {ok, Files} = file:list_dir("input"),
+    solve(Files),
+    erlang:halt(0);
 main([Arg]) ->
-    main([Arg, "input/" ++ Arg ++ ".txt"]);
-main([Arg, File]) ->
-    Answer = solve(list_to_atom(Arg), File),
-    io:format("~s: ~p\n", [Arg, Answer]),
+    solve([Arg ++ ".txt"]),
     erlang:halt(0).
+
+solve(Files) ->
+    lists:map(
+      fun(F) ->
+              Mod = list_to_atom(hd(string:tokens(F, "."))),
+              {T, Answer} = timer:tc(fun() -> solve(Mod, "input/" ++ F) end),
+              io:format("~s: ~p (~p ms)\n",
+                        [Mod, Answer, trunc(math:ceil(T / 1000))])
+      end, lists:sort(Files)).
 
 solve(Mod, File) ->
     {ok, Input} = file:read_file(File),
